@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { NewsService } from './../../services/news.service';
+import { Component, OnInit } from '@angular/core';
+import { Article } from './../../../interfaces/index';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit{
 
+  public articles: Article[] =[];
 
   public categories: string[] = [
     'business',
@@ -18,10 +21,21 @@ export class Tab2Page {
     'technology'
   ];
   public selectedCategory: string = this.categories[2];
-  constructor() {}
+  constructor( private newsService: NewsService) {}
 
-  segmentChanged(category: any){
-   console.log(category);
+  ngOnInit() {
+   this.newsService.getNewsByCategory(this.selectedCategory)
+        .subscribe(articles => {
+        this.articles = [...this.articles, ...articles];
+   });
+  }
+
+  segmentChanged(event: any){
+    this.selectedCategory = event.detail.value;
+    this.newsService.getNewsByCategory(this.selectedCategory)
+    .subscribe(articles => {
+      this.articles = [...articles];
+});
 
   }
 }
