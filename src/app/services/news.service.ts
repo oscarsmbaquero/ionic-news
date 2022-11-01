@@ -17,7 +17,7 @@ export class NewsService {
 
 getNews(): Observable<Article[]>{
   return this.http.get<NewsResponse>
-  (`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`)
+  (`https://newsapi.org/v2/top-headlines?country=it&apiKey=${apiKey}`)
   .pipe(
     map( resp => resp.articles)
   );
@@ -25,7 +25,7 @@ getNews(): Observable<Article[]>{
 
 getNewsByCategory( category: string): Observable<Article[]>{
   return this.http.get<NewsResponse>
-  (`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${apiKey}`)
+  (`https://newsapi.org/v2/top-headlines?country=it&category=${category}&apiKey=${apiKey}`)
   .pipe(
     map( resp => resp.articles)
   );
